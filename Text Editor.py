@@ -6,15 +6,21 @@ class TkInterEx:
 
     @staticmethod
 
-    def quit(event=None):
-        root.quit()
-    #Main function
+
+    # Main function
     def __init__(self,root):
+
+        # Quit file
+        def quit(event=None):
+            root.quit()
+
+       # Opening new file
         def newfile():
             global filename
             filename="Untitled"
             text.delete(0.0,END)
 
+        # Opening saved file
         def openfile():
             f=filedialog.askopenfilename(defaultextension=".txt")
             f=open(f,"r")
@@ -23,9 +29,8 @@ class TkInterEx:
                 text.insert(1.0,contents)
                 f.close()
 
+        # Saving file
         def savefile():
-
-
             global text
             t = text.get("1.0", "end-1c")
             savelocation=filedialog.asksaveasfilename()
@@ -33,6 +38,7 @@ class TkInterEx:
             file1.write(t)
             file1.close()
 
+        # About
         def about():
             messagebox.showinfo("About","This program is made in 2017.")
 
@@ -43,7 +49,7 @@ class TkInterEx:
         file_menu.add_command(label="Open",command=openfile)
         file_menu.add_command(label="Save",command=savefile)
         file_menu.add_separator()
-        file_menu.add_command(label="Exit",command=self.quit)
+        file_menu.add_command(label="Exit",command=quit)
         menubar.add_cascade(label="File",menu=file_menu)
 
         help_menu=Menu(menubar)
@@ -67,7 +73,7 @@ class TkInterEx:
 
         open_button=Button(toolbar,image=open_icon,command=openfile)
         save_button=Button(toolbar,image=save_icon,command=savefile)
-        exit_button=Button(toolbar,image=exit_icon,command=self.quit)
+        exit_button=Button(toolbar,image=exit_icon,command=quit)
 
         open_button.image=open_icon
         save_button.image=save_icon
